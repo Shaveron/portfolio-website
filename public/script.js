@@ -145,12 +145,23 @@ contactForm.addEventListener('submit', async (e) => {
     const data = await response.json();
 
     if (data.success) {
-    status.style.color = "#34c76d";
-    status.textContent = "Message sent successfully!";
-    contactForm.reset();
+
+      status.style.color = "#34c76d";
+
+      /* interactive message */
+      status.style.opacity = "0";
+      status.textContent = `Message sent, thank you ${name}!`;
+
+      setTimeout(() => {
+        status.style.transition = "opacity 0.5s ease";
+        status.style.opacity = "1";
+      }, 100);
+
+      contactForm.reset();
+
     } else {
-    status.style.color = "red";
-    status.textContent = data.error;
+      status.style.color = "red";
+      status.textContent = data.error;
     }
 
   } catch (error) {
